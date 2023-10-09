@@ -1,0 +1,173 @@
+openapi: 3.0.3
+info:
+  title: ArticlesAPI
+  description: API which enables the user to create/save, update, delete and get summaries for online articles
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:3000'
+  - url: 'https://article-summaries.onrender.com'
+paths:
+  /article:
+    post:
+      tags:
+        - Article
+      summary: add new summary
+      operationId: createNewSummary
+      description: create and save new summary
+      responses:
+        '201':
+          description: summary created
+        '404':
+          description: summary could not be saved
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArticleSummaryInput'
+        description: saving new article summary
+    get:
+      tags:
+        - Article
+      summary: read all summaries or query by languages and/or topic
+      operationId: getAllSummaries
+      description: download an array of all available summaries
+      parameters:
+        - name: l
+          in: query
+          description: language criteria
+          required: false
+          schema:
+            type: string
+        - name: t
+          in: query
+          description: topic criteria
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: all available summaries read
+        '404':
+          description: summaries could not be read
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ArticleSummaryOutput'
+  /article/:id:
+    get:
+      tags:
+        - Article
+      summary: reads single article summary
+      operationId: readSummary
+      description: reads a single article summary from the database by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: article-id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: summary read
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleSummaryOutput'
+        '404':
+          description: article summary could not be read
+    patch:
+      tags:
+        - Article
+      summary: updates single article
+      operationId: updateArticleSummary
+      description: updates a article summary from the database by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: article-id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: article summary updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArticleSummaryOutput'
+        '404':
+          description: article summary could not be updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArticleSummaryInput'
+        description: article summary that's to be updated
+
+    delete:
+      tags:
+        - Article
+      summary: deletes single summary
+      operationId: deleteSummary
+      description: deletes a summary from the database by id
+      parameters:
+        - name: _id
+          in: path
+          required: true
+          description: article-id
+          schema:
+            type : string
+      responses:
+        '204':
+          description: summary deleted
+        '404':
+          description: summary could not be deleted
+
+components:
+  schemas:
+    ArticleSummaryOutput:
+      type: object
+      required:
+        - _id
+        - topic
+        - language
+        - summary
+      properties:
+        _id:
+          type: string
+          example: gje2irh4ubjfne
+        link:
+            type: string
+            example: thisIsALink
+        topic:
+          type: string
+          example: Technology-ML
+        language:
+          type: string
+          example: English
+        summary:
+          type: string
+          example: dontKnow
+
+    ArticleSummaryInput:
+      type: object
+      required:
+        - topic
+        - language
+        - summary
+      properties:
+        link:
+          type: string
+          example: thisIsALink
+        topic:
+          type: string
+          example: Technology-ML
+        language:
+          type: string
+          example: English
+        summary:
+          type: string
+          example: dontKnow

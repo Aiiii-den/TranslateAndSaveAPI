@@ -59,9 +59,6 @@ router.get('', async (req, res) => {
             res.status(200);
             res.send(Articles);
         })
-        /*const articles = await Articles.find(query)//.toArray();
-        console.log(articles);
-        res.send(articles);*/
     } catch {
         res.status(404);
         res.send({
@@ -69,23 +66,6 @@ router.get('', async (req, res) => {
         })
     }
 });
-/*-- INCLUDED IN THE QUERY PARAMETER ONE
-// GET ALL TRANSLATIONS
-router.get('', async(req, res) => {
-    try{
-        Articles.find({
-        }).then(async (Articles) => {
-            console.log(Articles);
-            res.status(200);
-            res.send(Articles);
-        })
-    } catch {
-        res.status(404);
-        res.send({
-            error: "Articles could not be read :("
-        })
-    }
-});*/
 
 // UPDATE ONE TRANSLATION BY ID
 router.patch('/:id', async(req, res) => {
