@@ -5,7 +5,7 @@ let { mongoose } = require('../mongodb/connection');
 require('dotenv').config();
 
 
-// SAVE NEW TRANSLATION
+// SAVE NEW ARTICLE
 router.post('', async(req, res) => {
     try {
         const newArticle = new Articles ({
@@ -28,7 +28,7 @@ router.post('', async(req, res) => {
     }
 });
 
-// GET ONE TRANSLATION BY ID
+// GET ONE ARTICLE BY ID
 router.get('/:id', async (req, res) => {
     try{
         const prompt = await Articles.findOne({_id: req.params.id});
@@ -67,7 +67,7 @@ router.get('', async (req, res) => {
     }
 });
 
-// UPDATE ONE TRANSLATION BY ID
+// UPDATE ONE ARTICLE BY ID
 router.patch('/:id', async(req, res) => {
     try {
         const article = await Articles.findOne({ _id: req.params.id })
@@ -95,7 +95,7 @@ router.patch('/:id', async(req, res) => {
     }
 });
 
-// DELETE ONE TRANSLATION BY ID
+// DELETE ONE ARTICLE BY ID
 router.delete('/:id', async(req, res) => {
     try {
         const articles = await Articles.deleteOne({ _id: req.params.id })
