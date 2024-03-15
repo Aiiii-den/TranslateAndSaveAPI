@@ -13,7 +13,8 @@ router.post('', async(req, res) => {
             link: req.body.link,
             topic: req.body.topic,
             language: req.body.language,
-            summary: req.body.summary
+            summary: req.body.summary,
+            source: req.body.source
         })
         const result = await newArticle.save();
         res.status(201);
@@ -85,6 +86,9 @@ router.patch('/:id', async(req, res) => {
         }
         if (req.body.summary) {
             article.summary = req.body.summary
+        }
+        if (req.body.source) {
+            article.source = req.body.source
         }
         await Articles.updateOne({ _id: req.params.id }, article);
         res.status(200);

@@ -151,6 +151,9 @@ components:
         summary:
           type: string
           example: dontKnow
+        source:
+          type: string
+          example: someNewspaper
 
     ArticleSummaryInput:
       type: object
@@ -171,3 +174,6 @@ components:
         summary:
           type: string
           example: dontKnow
+        source:
+          type: string
+          example: someNewspaper

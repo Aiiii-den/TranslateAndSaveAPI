@@ -4,6 +4,7 @@
  * Topic
  * Language
  * Summary
+ * Source
  */
 
 const mongoose = require('mongoose');
@@ -32,6 +33,11 @@ const articlesSchema=new mongoose.Schema({
     summary: {
         type: String,
         required: true,
+        trim: true
+    },
+    source: {
+        type: String,
+        required: false,
         trim: true
     }
 })
